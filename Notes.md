@@ -1,6 +1,0 @@
-- [ ] Shrink tether
-- [ ] Make sure try again fully restarts game
-  - [ ] For some reason only the last tether heals
-- [ ] Shrink Squib hitbox
-- [ ] Gun Upgrades (stretch goal)
-- [ ] Make enemy spawn rate faster (30 sec), and increase spawn rate by 25+ per wave, starting at 10-30
