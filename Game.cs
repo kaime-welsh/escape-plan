@@ -2,15 +2,12 @@ using Raylib_cs;
 using static Raylib_cs.Raylib;
 using rlImGui_cs;
 using ImGuiNET;
-using Riptide;
-using Riptide.Utils;
 
 namespace EscapePlan;
 
 class Game
 {
-    public static Server? Server { get; set; }
-    public static Client? Client { get; set; }
+    Network Network;
 
     public Game()
     {
@@ -20,21 +17,15 @@ class Game
         rlImGui.Setup(true);
         ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
 
-        RiptideLogger.Initialize(Console.WriteLine, true);
-
-        Console.WriteLine("Creating server...");
-        Server = new Server();
-
-        Console.WriteLine("Creating local client...");
-        Client = new Client();
+        Network = new Network();
+        Network.Host();
     }
 
     public void Run()
     {
         while (!WindowShouldClose())
         {
-            if (Server != null) Server.Update();
-            if (Client != null) Client.Update();
+            Network.Run();
 
             BeginDrawing();
             ClearBackground(Color.Black);
