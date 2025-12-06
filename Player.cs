@@ -7,6 +7,7 @@ namespace EscapePlan;
 class Player
 {
     Vector3 Position { get; set; }
+    uint Owner { get; set; }
     
     void Update(float dt)
     {

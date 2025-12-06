@@ -18,13 +18,15 @@ class Game
         ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
 
         Network = new Network();
-        Network.Host();
     }
 
     public void Run()
     {
         while (!WindowShouldClose())
         {
+            if (IsKeyPressed(KeyboardKey.One)) Network.Host();
+            if (IsKeyPressed(KeyboardKey.Two)) Network.Join();
+
             Network.Run();
 
             BeginDrawing();

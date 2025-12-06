@@ -27,13 +27,28 @@ class Network
 
     public void Host(ushort port = 5000, ushort maxClients = 1)
     {
-        Server?.Start(port, maxClients);
-        Client?.Connect("127.0.0.1:" + port);
+        if (Server != null) return;
+        Server.Start(port, maxClients);
+        Join("127.0.0.1", port);
+
+        Server.ClientConnected += ServerHandleClientJoin;
     }
 
-    public void Join(String hostAddress, ushort port)
+    public void Join(String hostAddress = "127.0.0.1", ushort port = 5000)
     {
-        Client?.Connect(hostAddress + ":" + port);
+        if (Client != null) return;
+        Client.Connect(hostAddress + ":" + port);
+        Client.ClientConnected += ClientHandleClientJoin;
+    }
+
+    private void ServerHandleClientJoin(object? sender, ServerConnectedEventArgs e)
+    {
+        Console.WriteLine("[SERVER] Client connected.");
+    }
+
+    private void ClientHandleClientJoin(object? sender, ClientConnectedEventArgs e)
+    {
+        Console.WriteLine("[CLIENT] Client connected.");
     }
 
     public void Run()
