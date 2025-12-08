@@ -9,6 +9,8 @@ Engine engine_initialize(WindowConfig config)
     Engine engine = {
         .windowConfig = config,
         .isRunning = true,
+        .currentState = GAME_STATE_MENU,
+        .previousState = GAME_STATE_MENU,
     };
 
     // Setup window
@@ -17,11 +19,17 @@ Engine engine_initialize(WindowConfig config)
     SetTargetFPS(500);
 
     network_initialize();
+
     if (is_server)
     {
         network_host();
     }
-    network_connect("127.0.0.1");
+
+    if (local_client)
+    {
+        // If this process has a local client, connect (loopback if also hosting)
+        network_connect("127.0.0.1");
+    }
 
     // Load initial state
     engine_change_state(&engine, GAME_STATE_PLAYING);
@@ -43,7 +51,7 @@ void engine_run(Engine *engine)
         case GAME_STATE_MENU:
             break;
         case GAME_STATE_PLAYING:
-            playing_state_render();
+            playing_state_update();
             break;
         case GAME_STATE_PAUSED:
             break;

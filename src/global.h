@@ -1,6 +1,8 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+#include <stdbool.h>
+
 // Type Definitions
 enum GameState {
     GAME_STATE_MENU,

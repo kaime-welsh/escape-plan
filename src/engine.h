@@ -4,6 +4,7 @@
 #include "global.h"
 
 extern bool is_server;
+extern bool local_client;
 
 Engine engine_initialize(WindowConfig config);
 void engine_run(Engine* engine);
